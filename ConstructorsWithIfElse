@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;https://github.com/ruhollahjafari1994/Programmer
+using System.Security.AccessControl;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{   
+    
+  
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Car c1 = new Car();
+            c1.Name = "ALI";
+            c1.Speed = 2000;
+            c1.DoorCount = 9;
+            Console.WriteLine($"Name : {c1.Name} , Speed : {c1.Speed}  , DoorCount : {c1.DoorCount}");
+            
+            Console.ReadLine();
+        }
+    }
+
+          public class Car
+            {
+                private string _Name;
+                private int _Speed;
+                private int _doorCount;
+                // using property to see from out of the class 
+
+                public string Name { get; set; } = "Pride";
+        public int Speed
+        {
+            get {
+                return _Speed;
+            }
+
+            set { 
+            
+                if (value > 120)
+                {
+                    Console.WriteLine("Value Not Valid ...");
+                    _Speed = 120;
+                }
+                else
+                {
+                    Console.WriteLine("Value Is Valid ...");
+                    _Speed = value;
+                }
+            }
+            }
+        public int DoorCount
+        {
+            get { return _doorCount; }
+            set
+            {
+                if (value == 2 || value == 4)
+                {
+                    _doorCount = value;
+                }
+                else
+                {
+                   throw new Exception("Value Not Valid"); 
+                }
+            }
+        }
+
+
+
+        ~Car()
+                {
+                    Console.WriteLine("DESTRUCTOR");
+                }
+            }
+    
+    
+}
