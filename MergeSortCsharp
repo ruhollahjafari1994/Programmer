@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.AccessControl;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Merge_Sort
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> UnSorted = new List<int>();
+            List<int> Sorted = new List<int>();
+
+            Random rand = new Random();
+
+            for (int i = 0; i < 10; i++)
+            {
+                    UnSorted.Add(rand.Next(1, 100));
+            }
+            Sorted = MergeSort(UnSorted);
+            Console.ReadLine();
+         } 
+                private static List<int> MergeSort(List<int>  unsorted)
+            {
+            if (unsorted.Count<=1)
+            {
+                return unsorted;
+            }
+            List<int> left = new List<int>();
+            List<int> right = new List<int>();
+            int Middle = unsorted.Count / 2; // هی نصف میکنه تا به تیکه های یه دونه ای تبدیل بشن 
+            for (int i = 0; i < Middle; i++)//تقسیم بندی لیست نامرتب
+            {
+                left.Add(unsorted[i]);
+            }
+            for (int i= Middle;  i< unsorted.Count; i++)
+            {
+                right.Add(unsorted[i]);
+            }
+
+            left = MergeSort(left);
+            right = MergeSort(right);
+            return Merge(left, right);
+            }
+        public static List<int> Merge(List<int> left,List<int> right)
+        {
+            List<int> Result = new List<int>();
+            while (left.Count > 0 || right.Count > 0)
+            {
+                if (left.Count>0 && right.Count>0)
+                {
+                    //مقایسه میکنه چپی رو با راستی تا کوچیکتره پیدا بشه 
+                    if (left.First() <= right.First())
+                    {
+                        Result.Add(left.First());
+                        left.Remove(left.First());
+                    }
+                    else
+                    {
+                        Result.Add(right.First());
+                        right.Remove(right.First());
+                    }
+                }
+                else if (left.Count>0)//right ==0 
+                {
+                    Result.Add(left.First());
+                    left.Remove(left.First());
+
+                }
+                else if (right.Count>0) //left == 0 
+                {
+                    Result.Add(right.First());
+                    right.Remove(right.First());
+                }
+            }
+            return Result;   
+            
+
+        }
+    }
+ 
+}
+
+//Merge Sort 
+/*اول دوتا لیست که یکیش نامرتب و اونیکی مرتبه است ایجاد میکنیم 
+قدم دوم : لیست نامرتب رو به صورت رندوم پر از عدد میکنیم 
+قدم سوم : وسط رو پیدا کن تا به اجزای کوچیکتر تقسیم کنی تا کوچیکترین واحد پیش برو  
+قدم چهارم :در آخرین واحد قسمت چپ رو صدا کن باراست مقایسه کن و مرتبش کن 
+قدم پنجم :در آخرین واحد  قسمت راست رو صدا کن  با چپ مقایسه کن و مرتب کن
+*/
